@@ -1,6 +1,7 @@
 const passport = require('passport');
 
 module.exports = app => {
+    // Google OAuth
     app.get(
         '/auth/google',
         passport.authenticate('google', {
@@ -10,6 +11,17 @@ module.exports = app => {
 
     app.get('/auth/google/callback', passport.authenticate('google'));
 
+    // Facebook OAuth
+    app.get(
+        '/auth/facebook',
+        passport.authenticate('facebook', {
+            scope: ['email']
+        })
+    );
+
+    app.get('/auth/facebook/callback', passport.authenticate('facebook'));
+
+    // Basic Routes
     app.get('/api/logout', (req, res) => {
         req.logout();
         res.send(req.user);
