@@ -43,10 +43,11 @@ passport.use(
     new FacebookStrategy({
         clientID: keys.facebookClientID,
         clientSecret: keys.facebookClientSecret,
-        callbackURL: '/auth/facebook/callback/',
-        proxy: true
+        callbackURL: '/auth/facebook/callback',
+        profileFields: ['id', 'displayName', 'email']
     },
     (accessToken, refreshToken, profile, done) => {
+        console.log(profile);
         User.findOne({ facebookId: profile.id })
         .then(existingUser => {
             if(existingUser) {
