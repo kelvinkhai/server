@@ -14,7 +14,10 @@ module.exports = app => {
     // Facebook OAuth
     app.get(
         '/auth/facebook',
-        passport.authenticate('facebook')
+        passport.authenticate('facebook', {
+            authType: 'rerequest',
+            scope: ['email', 'public_profile'],
+        })
     );
 
     app.get('/auth/facebook/callback', passport.authenticate('facebook'));
